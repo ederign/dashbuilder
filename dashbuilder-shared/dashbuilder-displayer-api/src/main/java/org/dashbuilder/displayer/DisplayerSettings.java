@@ -28,6 +28,15 @@ import org.dashbuilder.dataset.DataSetLookup;
 import org.dashbuilder.dataset.sort.SortOrder;
 import org.jboss.errai.common.client.api.annotations.Portable;
 
+/**
+ * <p>Pending stuff:
+ * <ul>
+ *     <li>XAxis labels (visible, font)</li>
+ *     <li>Animation (enabled, type)</li>
+ *     <li>Tooltips (enabled, font, color, fillcolor, padding, cornerRadious)</li>
+ * </ul>
+ * </p>
+ */
 @Portable
 public class DisplayerSettings {
 

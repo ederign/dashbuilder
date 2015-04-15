@@ -268,6 +268,19 @@
 
       <dependency>
         <groupId>org.dashbuilder</groupId>
+        <artifactId>dashbuilder-renderer-default</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.dashbuilder</groupId>
+        <artifactId>dashbuilder-renderer-default</artifactId>
+        <version>${project.version}</version>
+        <classifier>sources</classifier>
+      </dependency>
+
+      <dependency>
+        <groupId>org.dashbuilder</groupId>
         <artifactId>dashbuilder-renderer-google</artifactId>
         <version>${project.version}</version>
       </dependency>
@@ -305,7 +318,7 @@
         <version>${project.version}</version>
         <classifier>sources</classifier>
       </dependency>
-      
+
       <dependency>
         <groupId>org.dashbuilder</groupId>
         <artifactId>dashbuilder-renderer-lienzo</artifactId>
@@ -319,15 +332,16 @@
         <classifier>sources</classifier>
       </dependency>
 
+      <!-- ChartJS -->
       <dependency>
         <groupId>org.dashbuilder</groupId>
-        <artifactId>dashbuilder-renderer-default</artifactId>
+        <artifactId>dashbuilder-renderer-chartjs</artifactId>
         <version>${project.version}</version>
       </dependency>
 
       <dependency>
         <groupId>org.dashbuilder</groupId>
-        <artifactId>dashbuilder-renderer-default</artifactId>
+        <artifactId>dashbuilder-renderer-chartjs</artifactId>
         <version>${project.version}</version>
         <classifier>sources</classifier>
       </dependency>
