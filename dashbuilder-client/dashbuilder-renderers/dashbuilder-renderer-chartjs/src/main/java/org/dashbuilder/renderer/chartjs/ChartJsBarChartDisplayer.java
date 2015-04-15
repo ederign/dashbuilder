@@ -52,7 +52,7 @@ public class ChartJsBarChartDisplayer extends ChartJsDisplayer {
 
         BarChart barChart = new BarChart();
         barChart.setTitle(displayerSettings.getTitle());
-        barChart.setTooltipTemplate("<%= label %><br/><%= chartJsFormatValue(value) %>");
+        barChart.setTooltipTemplate("<%= label %>: <%= window.chartJsFormatValue('" + displayerSettings.getUUID() + "', value, 1) %>");
         barChart.setMultiTooltipTemplate("<%= value %>");
         barChart.setScaleStepWidth(10);
         barChart.setLegendTemplate("<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%=datasets[i].fillColor%>\"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>");

@@ -156,6 +156,7 @@ public abstract class ChartJsDisplayer extends AbstractDisplayer {
      */
     public void close() {
         panel.clear();
+        ChartJsRenderer.closeDisplayer(this);
 
         // Close done
         afterClose();

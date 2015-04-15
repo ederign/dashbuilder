@@ -15,15 +15,15 @@
  */
 package org.dashbuilder.renderer.chartjs;
 
+import java.util.HashMap;
+import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
 
-import com.google.gwt.user.client.Window;
 import org.dashbuilder.dataset.DataColumn;
 import org.dashbuilder.displayer.DisplayerSettings;
 import org.dashbuilder.displayer.DisplayerType;
-import org.dashbuilder.displayer.client.AbstractDisplayer;
 import org.dashbuilder.displayer.client.AbstractRendererLibrary;
 import org.dashbuilder.displayer.client.Displayer;
 import org.dashbuilder.displayer.client.RendererLibLocator;
@@ -46,9 +46,8 @@ public class ChartJsRenderer extends AbstractRendererLibrary {
 
     @PostConstruct
     private void init() {
-        ChartJs.ensureInjected();
-        publishChartJsFunctions();
         RendererLibLocator.get().registerRenderer(DisplayerType.BARCHART, UUID, false);
+        publishChartJsFunctions();
     }
 
     @Override
@@ -58,22 +57,35 @@ public class ChartJsRenderer extends AbstractRendererLibrary {
 
     @Override
     public Displayer lookupDisplayer(DisplayerSettings displayerSettings) {
+        ChartJsDisplayer displayer = _lookupDisplayer(displayerSettings);
+        if (displayer != null) {
+            _displayerMap.put(displayerSettings.getUUID(), displayer);
+        }
+        return displayer;
+    }
+
+    protected ChartJsDisplayer _lookupDisplayer(DisplayerSettings displayerSettings) {
+        ChartJs.ensureInjected();
         DisplayerType type = displayerSettings.getType();
         if ( DisplayerType.BARCHART.equals(type)) return new ChartJsBarChartDisplayer();
         return null;
     }
 
     private native void publishChartJsFunctions() /*-{
-        $wnd.$chartJsFormatValue = @org.dashbuilder.renderer.chartjs.ChartJsRenderer::formatValue(Ljava/lang/Object;);
+        $wnd.chartJsFormatValue = $entry(@org.dashbuilder.renderer.chartjs.ChartJsRenderer::formatValue(Ljava/lang/String;DI));
     }-*/;
 
-    public static String formatValue(Object value) {
-        Window.alert(value.toString());
-        return value.toString();
-    }
+    protected static Map<String,ChartJsDisplayer> _displayerMap = new HashMap<String, ChartJsDisplayer>();
 
-    public static String formatValue(AbstractDisplayer displayer, Object value, int column) {
+    public static String formatValue(String displayerId, double value, int column) {
+        ChartJsDisplayer displayer = _displayerMap.get(displayerId);
+        if (displayer == null) return Double.toString(value);
+
         DataColumn dataColumn = displayer.getDataSetHandler().getLastDataSet().getColumnByIndex(column);
         return displayer.formatValue(value, dataColumn);
+    }
+
+    public static void closeDisplayer(ChartJsDisplayer displayer) {
+        _displayerMap.remove(displayer.getDisplayerId());
     }
 }
