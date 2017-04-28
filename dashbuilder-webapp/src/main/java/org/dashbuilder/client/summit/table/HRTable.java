@@ -17,12 +17,14 @@ import com.google.gwt.user.cellview.client.ColumnSortList;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlowPanel;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RequiresResize;
 import com.google.gwt.view.client.AsyncDataProvider;
 import com.google.gwt.view.client.HasData;
 import org.dashbuilder.client.summit.iframe.ReloadIframeEvent;
 import org.gwtbootstrap3.client.ui.Button;
 import org.gwtbootstrap3.client.ui.constants.IconType;
+import org.jboss.errai.common.client.ui.ElementWrapperWidget;
 import org.uberfire.ext.widgets.table.client.UberfirePagedTable;
 import org.uberfire.paging.AbstractPageRow;
 
@@ -44,6 +46,9 @@ public class HRTable extends Composite implements RequiresResize {
 
     @Inject
     Event<ReloadIframeEvent> reloadIframeEvent;
+
+    @Inject
+    ToolbarWidget toolbarWidget;
 
     private static final int PADDING = 30;
 
@@ -161,6 +166,8 @@ public class HRTable extends Composite implements RequiresResize {
 
         dataGrid.addColumnSortHandler( new ColumnSortEvent.AsyncHandler( dataGrid ) );
 
+        toolbarWidget.init(this);
+        panel.add(ElementWrapperWidget.getWidget(toolbarWidget.getElement() ));
         panel.add( dataGrid );
 //        panel.add( addButton );
         initWidget( panel );
@@ -168,6 +175,7 @@ public class HRTable extends Composite implements RequiresResize {
     }
 
     public void filter( String filter ) {
+        data.clear();
         imp.filterApplicants( filter ).forEach( p -> {
             data.add( new Row( p.getName(), String.valueOf( p.getAge() ), p.getCountry() ) );
             dataGrid.refresh();

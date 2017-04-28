@@ -8,7 +8,13 @@ import com.google.gwt.core.client.GWT;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeSet;
+import java.util.stream.Collectors;
 
 @ApplicationScoped
 public class ApplicantServiceImpl implements ApplicantService {
@@ -86,6 +92,16 @@ public class ApplicantServiceImpl implements ApplicantService {
             list.addAll( listFront );
         } else if ( drl.toUpperCase().contains( "BACK" ) ) {
             list.addAll( listBack );
+        }
+        else if (drl.isEmpty()){
+            List<Applicant> tempList = new ArrayList<>();
+            tempList.addAll(listBack);
+            tempList.addAll(listFront);
+            Collection<Applicant> nonDuplicatedApplicants = tempList.stream()
+                    .<Map<String, Applicant>> collect(HashMap::new, (m, e)->m.put(e.getName(), e), Map::putAll)
+                    .values();
+            list.addAll(nonDuplicatedApplicants);
+
         }
         return list;
     }

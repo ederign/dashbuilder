@@ -83,4 +83,6 @@ public class Applicant {
     public boolean isHasDroolsSkill() {
         return hasDroolsSkill;
     }
+
+
 }

@@ -17,8 +17,7 @@ import javax.inject.Inject;
 import java.util.Arrays;
 
 @ApplicationScoped
-public class HRTableComponent implements PerspectiveEditorDragComponent,
-        HasModalConfiguration {
+public class HRTableComponent implements PerspectiveEditorDragComponent {
 
 
     public static final String RULE = "Rule";
@@ -48,21 +47,16 @@ public class HRTableComponent implements PerspectiveEditorDragComponent,
     public IsWidget getShowWidget( RenderingContext ctx ) {
 
         HRTable hrTable = this.tableTest.get();
-        if ( ctx != null && ctx.getComponent() != null && ctx.getComponent().getProperties() != null ) {
-            if ( ctx.getComponent().getProperties().get( RULE ) == null ) {
-                hrTable.filter(  "" );
-            } else {
-                hrTable.filter( ( ctx.getComponent().getProperties().get( RULE ) ) );
-            }
-        }
+
+        hrTable.filter("");
         return hrTable;
     }
 
-    @Override
-    public Modal getConfigurationModal( ModalConfigurationContext ctx ) {
-        this.configContext = ctx;
-        return new EditHRTable( ctx, Arrays.asList( "frontend.drl", "full-stack.drl", "backend.drl" ) );
-    }
+//    @Override
+//    public Modal getConfigurationModal( ModalConfigurationContext ctx ) {
+//        this.configContext = ctx;
+//        return new EditHRTable( ctx, Arrays.asList( "frontend.drl", "full-stack.drl", "backend.drl" ) );
+//    }
 
 
     public void observeEditComponentEventFromPropertyEditor( @Observes PropertyEditorChangeEvent event ) {
