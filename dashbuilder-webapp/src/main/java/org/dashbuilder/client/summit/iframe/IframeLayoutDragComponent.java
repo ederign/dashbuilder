@@ -14,17 +14,14 @@
  * limitations under the License.
  */
 
-package org.dashbuilder.client.summit;
+package org.dashbuilder.client.summit.iframe;
 
 import java.util.Map;
 import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
 
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.IsWidget;
-import com.google.gwt.user.client.ui.Label;
 import org.jboss.errai.common.client.ui.ElementWrapperWidget;
 import org.uberfire.ext.layout.editor.client.api.RenderingContext;
 import org.uberfire.ext.plugin.client.perspective.editor.api.PerspectiveEditorDragComponent;

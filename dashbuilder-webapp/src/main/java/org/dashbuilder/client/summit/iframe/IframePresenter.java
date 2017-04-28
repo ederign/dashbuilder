@@ -14,11 +14,13 @@
  * limitations under the License.
  */
 
-package org.dashbuilder.client.summit;
+package org.dashbuilder.client.summit.iframe;
 
 import javax.enterprise.context.Dependent;
+import javax.enterprise.event.Observes;
 import javax.inject.Inject;
 
+import com.google.gwt.user.client.Window;
 import org.uberfire.client.mvp.UberElement;
 
 @Dependent
@@ -37,6 +39,10 @@ public class IframePresenter {
 
     public View getView() {
         return view;
+    }
+
+    public void reload(@Observes ReloadIframeEvent e){
+        Window.alert(e.getRow().getName() +  " no iframe.");
     }
 
     public interface View extends UberElement<IframePresenter> {

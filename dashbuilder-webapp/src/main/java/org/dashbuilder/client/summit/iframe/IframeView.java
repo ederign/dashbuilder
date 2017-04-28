@@ -14,12 +14,11 @@
  * limitations under the License.
  */
 
-package org.dashbuilder.client.summit;
+package org.dashbuilder.client.summit.iframe;
 
 import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
 
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.Frame;
 import org.jboss.errai.common.client.dom.DOMUtil;
