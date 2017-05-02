@@ -47,8 +47,7 @@ public class IframeLayoutDragComponent implements PerspectiveEditorDragComponent
 
     @Override
     public IsWidget getShowWidget(RenderingContext context) {
-        Map<String, String> properties = context.getComponent().getProperties();
-        String html = properties.get(HTMLLayoutDragComponent.HTML_CODE_PARAMETER);
-        return html == null ? null : new HTMLPanel(html);
+        iframePresenter.init();
+        return ElementWrapperWidget.getWidget(iframePresenter.getView().getElement());
     }
 }
